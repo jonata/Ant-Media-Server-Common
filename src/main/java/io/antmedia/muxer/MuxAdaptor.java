@@ -1383,9 +1383,7 @@ public class MuxAdaptor implements IRecordingListener {
 			muxer = mp4Muxer;
 		} 
 		else if(recordType == RecordType.WEBM) {
-			WebMMuxer webMMuxer = createWebMMuxer();
-			webMMuxer.setDynamic(true);
-			muxer = webMMuxer;
+			return false;
 		}
 		muxer.init(scope, streamId, 0);
 		
