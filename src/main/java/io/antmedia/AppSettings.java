@@ -58,7 +58,8 @@ public class AppSettings {
 	public static final String SETTINGS_HLS_TIME = "settings.hlsTime";
 	public static final String SETTINGS_DASH_SEG_DURATION = "settings.dashSegDuration";
 	public static final String SETTINGS_DASH_FRAGMENT_DURATION = "settings.dashFragmentDuration";
-	public static final String SETTINGS_DASH_TARGET_LATENCY = "settings.dashTargetLatency";	
+	public static final String SETTINGS_DASH_TARGET_LATENCY = "settings.dashTargetLatency";
+	public static final String SETTINGS_HLS_PLAYLIST_ON_DASH = "settings.hlsPlaylistOnDash";
 	public static final String SETTINGS_WEBRTC_ENABLED = "settings.webRTCEnabled";
 	public static final String SETTINGS_USE_ORIGINAL_WEBRTC_ENABLED = "settings.useOriginalWebRTCEnabled";
 	public static final String SETTINGS_DELETE_HLS_FILES_ON_ENDED = "settings.deleteHLSFilesOnEnded";
@@ -320,6 +321,12 @@ public class AppSettings {
 	 */
 	@Value( "${"+SETTINGS_DASH_TARGET_LATENCY+":3.5}" )
 	private String targetLatency;
+	
+	/**
+	 * HLS Playlist enable on DASH streaming. 
+	 */
+	@Value( "${"+SETTINGS_HLS_PLAYLIST_ON_DASH+":false}" )
+	private String hlsPlaylistOnDash;
 	
 	/**
 	 * DASH window size. Number of files in manifest
@@ -2062,6 +2069,14 @@ public class AppSettings {
 
 	public void setTimeTokenPeriod(int timeTokenPeriod) {
 		this.timeTokenPeriod = timeTokenPeriod;
+	}
+	
+	public String getHlsPlaylistOnDash() {
+		return hlsPlaylistOnDash;
+	}
+
+	public void setHlsPlaylistOnDash(String hlsPlaylistOnDash) {
+		this.hlsPlaylistOnDash = hlsPlaylistOnDash;
 	}
 
 }
