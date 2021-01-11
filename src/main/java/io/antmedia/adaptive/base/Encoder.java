@@ -1,4 +1,4 @@
-package io.antmedia;
+package io.antmedia.adaptive.base;
 
 import java.util.ArrayList;
 import java.util.List;

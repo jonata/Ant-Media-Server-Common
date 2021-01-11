@@ -61,6 +61,8 @@ import io.antmedia.datastore.db.types.Broadcast;
 import io.antmedia.muxer.parser.AACConfigParser;
 import io.antmedia.muxer.parser.AACConfigParser.AudioObjectTypes;
 import io.antmedia.muxer.parser.SpsParser;
+import io.antmedia.plugin.PacketFeeder;
+import io.antmedia.plugin.api.IPacketListener;
 import io.antmedia.storage.StorageClient;
 import io.vertx.core.Vertx;
 
@@ -313,6 +315,8 @@ public class MuxAdaptor implements IRecordingListener {
 		enableWebMSetting();
 		initVertx();
 
+		addMuxer(new PacketFeeder(vertx));
+		
 		if (mp4MuxingEnabled) {
 			addMp4Muxer();
 			logger.info("adding MP4 Muxer, add datetime to file name {}", addDateTimeToMp4FileName);
@@ -1609,6 +1613,12 @@ public class MuxAdaptor implements IRecordingListener {
 	
 	public void setBufferingFinishTimeMs(long bufferingFinishTimeMs) {
 		this.bufferingFinishTimeMs = bufferingFinishTimeMs;
+	}
+
+
+	public void addPacketListener(IPacketListener listener) {
+		((PacketFeeder) muxerList.get(0)).addListener(listener);
+		
 	}
 }
 
