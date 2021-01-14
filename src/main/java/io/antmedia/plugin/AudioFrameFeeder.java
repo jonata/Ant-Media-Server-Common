@@ -13,18 +13,25 @@ public class AudioFrameFeeder extends AudioEncoder {
 
 	public AudioFrameFeeder(int bitrate, String streamId) {
 		super(bitrate, streamId);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void prepareCodecLocal(int sampleRate, int channelLayout, int streamIndex) throws Exception {
-		// TODO Auto-generated method stub
-		
+		System.out.println("AudioFrameFeeder.prepareCodecLocal() for "+streamId);
+		running.set(true);
 	}
 
 	@Override
 	public boolean encode(AVFrame audioFrame, int streamIndex, long timestampMS) throws Exception {
-		// TODO Auto-generated method stub
+		System.out.println("AudioFrameFeeder.encode() for "+streamId);
+		return false;
+	}
+	
+	@Override
+	public boolean writeFrame(AVFrame frame, int streamIndex, long timestampMS) throws Exception {
+		for (IFrameListener iFrameListener : listeners) {
+			iFrameListener.onAudioFrame(streamId, frame);
+		}
 		return false;
 	}
 

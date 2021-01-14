@@ -21,32 +21,29 @@ public class PacketFeeder extends Muxer{
 
 	@Override
 	public boolean addStream(AVCodec codec, AVCodecContext codecContext, int streamIndex) {
-		// TODO Auto-generated method stub
+		System.out.println("PacketFeeder.addStream()  for "+streamId);
 		return false;
 	}
 
 	@Override
 	public boolean prepareIO() {
-		// TODO Auto-generated method stub
+		System.out.println("PacketFeeder.prepareIO() for "+streamId);
 		return false;
 	}
 
 	@Override
 	public void writeTrailer() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("PacketFeeder.writeTrailer() for "+streamId);
 	}
 
 	@Override
 	public void writePacket(AVPacket avpacket, AVStream inStream) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("PacketFeeder.writePacket() for "+streamId);
 	}
 
 	@Override
 	public void writePacket(AVPacket avpacket, AVCodecContext codecContext) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("PacketFeeder.writePacket() for "+streamId);
 	}
 
 	public void addListener(IPacketListener listener) {
