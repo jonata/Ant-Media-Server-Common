@@ -429,7 +429,7 @@ public class MuxAdaptor implements IRecordingListener {
 	}
 	
 
-	protected AVCodecParameters getAudioCodecParameters() {
+	public AVCodecParameters getAudioCodecParameters() {
 		
 		if (audioDataConf != null && audioCodecParameters == null) 
 		{
@@ -471,7 +471,7 @@ public class MuxAdaptor implements IRecordingListener {
 	}
 
 
-	protected AVCodecParameters getVideoCodecParameters() 
+	public AVCodecParameters getVideoCodecParameters() 
 	{
 		if (videoDataConf != null && videoCodecParameters == null) {
 			SpsParser spsParser = new SpsParser(getAnnexbExtradata(videoDataConf), 5);
