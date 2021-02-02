@@ -220,6 +220,7 @@ public class MuxAdaptor implements IRecordingListener {
 	private AVCodecParameters audioCodecParameters;
 	private BytePointer audioExtraDataPointer;
 	private BytePointer videoExtraDataPointer;
+	private PacketFeeder packetFeeder;
 	
 	private static final int COUNT_TO_LOG_BUFFER = 500;
 
@@ -332,7 +333,7 @@ public class MuxAdaptor implements IRecordingListener {
 		enableWebMSetting();
 		initVertx();
 
-		addMuxer(new PacketFeeder(vertx));
+		packetFeeder = new PacketFeeder(streamId);
 		
 		if (mp4MuxingEnabled) {
 			addMp4Muxer();
@@ -1027,6 +1028,7 @@ public class MuxAdaptor implements IRecordingListener {
 
 		synchronized (muxerList) 
 		{
+			packetFeeder.writePacket(pkt);
 			for (Muxer muxer : muxerList) {
 				muxer.writePacket(pkt, stream);
 			}
@@ -1034,6 +1036,7 @@ public class MuxAdaptor implements IRecordingListener {
 	}
 
 	public synchronized void writeTrailer() {
+		packetFeeder.writeTrailer();
 		for (Muxer muxer : muxerList) {
 			muxer.writeTrailer();
 		}
@@ -1643,8 +1646,9 @@ public class MuxAdaptor implements IRecordingListener {
 	}
 
 	public void addPacketListener(IPacketListener listener) {
-		((PacketFeeder) muxerList.get(0)).addListener(listener);
-		
+		listener.setVideoCodecParameter(streamId, videoCodecParameters);
+		listener.setAudioCodecParameter(streamId, audioCodecParameters);
+		packetFeeder.addListener(listener);
 	}
 }
 
